@@ -6,17 +6,22 @@ export function login(email, password) {
     result = axios
         .post(LOGIN_V1_URL, { email, password })
         .catch(function (error) {
-            console.error(error)
-            return error.response
+            console.error(error);
+            return error.response;
         });
     return result;
 }
 
 export function register(name, email, password, confirmPassword) {
-    return axios.post(REGISTER_V1_URL, {
-        name,
-        email,
-        password,
-        confirmPassword,
-    });
+    return axios
+        .post(REGISTER_V1_URL, {
+            name,
+            email,
+            password,
+            "password_confirmation": confirmPassword,
+        })
+        .catch(function (error) {
+            console.error(error);
+            return error.response;
+        });
 }
