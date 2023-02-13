@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
@@ -43,9 +42,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-export default function HomePage() {
+export default function Header() {
     return (
-        <Popover className="relative bg-white">
+        <Popover className="relative">
             {({ open }) => (
                 <>
                     <div className="flex justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">

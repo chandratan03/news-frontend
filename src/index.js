@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Header from "./components/header/Header";
 import "./index.css";
-import HomePage from "./pages/home/Home";
+import HomePage from "./pages/home/HomePage";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import reportWebVitals from "./reportWebVitals";
@@ -26,7 +27,14 @@ const router = createBrowserRouter([
 
 root.render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <>
+            <div className="flex flex-col items-center bg-gray-50">
+                <div className="max-w-[1140px] w-full">
+                    <Header />
+                </div>
+                <RouterProvider router={router} />
+            </div>
+        </>
     </React.StrictMode>
 );
 
