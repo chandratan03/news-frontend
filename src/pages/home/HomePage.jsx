@@ -5,7 +5,7 @@ import { useHomePage } from "./UseHomePage";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function HomePage() {
-    const { news, loadNews, hasMore, lastPage, currentPage } = useHomePage();
+    const { news, loadNews, hasMore } = useHomePage();
 
     useEffect(() => {
         loadNews();

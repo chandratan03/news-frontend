@@ -1,16 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Popover, Transition } from "@headlessui/react";
-import {
-    ChartBarIcon,
-    CursorClickIcon,
-    DocumentReportIcon,
-    MenuIcon,
-    RefreshIcon,
-    ShieldCheckIcon,
-    ViewGridIcon,
-    XIcon,
-} from "@heroicons/react/outline";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, SearchIcon } from "@heroicons/react/solid";
+import { SearchComponent } from "./SearchBar";
+import { Logo } from "../logo/Logo";
+import AuthContext from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 const resources = [
     {
@@ -42,21 +37,37 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
+function userLogo() {
+    return (
+        <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
+            <svg
+                className="h-full w-full text-gray-300"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+        </span>
+    );
+}
+
 export default function Header() {
+    const { user, token, isAuth, setUser, setToken, setIsAuth } =
+        useContext(AuthContext);
+
     return (
         <Popover className="relative">
             {({ open }) => (
                 <>
                     <div className="flex justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
                         <div>
-                            <a href="#" className="flex">
-                                <span className="sr-only">Workflow</span>
-                                <img
-                                    className="h-8 w-auto sm:h-10"
-                                    src="/img/logos/workflow-mark-indigo-600.svg"
-                                    alt=""
-                                />
+                            <a href="/" className="flex">
+                                <span className="sr-only">News</span>
+                                <Logo />
                             </a>
+                        </div>
+                        <div className="md:hidden w-full">
+                            <SearchComponent />
                         </div>
                         <div className="-mr-2 -my-2 md:hidden">
                             <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -148,20 +159,30 @@ export default function Header() {
                                     )}
                                 </Popover>
                             </Popover.Group>
-                            <div className="flex items-center md:ml-12">
+                            <SearchComponent />
+                            {!isAuth ? (
+                                <div className="flex items-center md:ml-12">
+                                    <a
+                                        href="/login"
+                                        className="text-base font-medium text-gray-500 hover:text-gray-900"
+                                    >
+                                        Sign in
+                                    </a>
+                                    <a
+                                        href="/register"
+                                        className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                                    >
+                                        Sign up
+                                    </a>
+                                </div>
+                            ) : (
                                 <a
-                                    href="/login"
+                                    href="/profile"
                                     className="text-base font-medium text-gray-500 hover:text-gray-900"
                                 >
-                                    Sign in
+                                    {userLogo()}
                                 </a>
-                                <a
-                                    href="/register"
-                                    className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                                >
-                                    Sign up
-                                </a>
-                            </div>
+                            )}
                         </div>
                     </div>
 
@@ -183,13 +204,7 @@ export default function Header() {
                             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
                                 <div className="pt-5 pb-6 px-5">
                                     <div className="flex items-center justify-between">
-                                        <div>
-                                            <img
-                                                className="h-8 w-auto"
-                                                src="/img/logos/workflow-mark-indigo-600.svg"
-                                                alt="Workflow"
-                                            />
-                                        </div>
+                                        <Logo />
                                         <div className="-mr-2">
                                             <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                                                 <span className="sr-only">
@@ -235,17 +250,18 @@ export default function Header() {
                                             </a>
                                         ))}
                                     </div>
+
                                     <div className="mt-6">
                                         <a
-                                            href="#"
+                                            href="/register"
                                             className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                                         >
                                             Sign up
                                         </a>
                                         <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                            Existing customer?{" "}
+                                            Already have an account?{" "}
                                             <a
-                                                href="#"
+                                                href="/login"
                                                 className="text-indigo-600 hover:text-indigo-500"
                                             >
                                                 Sign in

@@ -13,19 +13,16 @@ export const useHomePage = () => {
             return;
         }
         if (hasMore == false) return;
-        
-        let newsResponse = await getNews(currentPage+1);
+
+        let newsResponse = await getNews(currentPage + 1);
         setLastPage(newsResponse.data.data.last_page);
         setCurrentPage(newsResponse.data.data.current_page);
         setNews(news.concat(newsResponse.data.data.data));
-
     };
 
     return {
         news,
         loadNews,
         hasMore,
-        lastPage,
-        currentPage,
     };
 };
