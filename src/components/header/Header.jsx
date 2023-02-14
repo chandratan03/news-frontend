@@ -2,10 +2,10 @@ import { Fragment, useContext } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { ChevronDownIcon, SearchIcon } from "@heroicons/react/solid";
-import { SearchComponent } from "./SearchBar";
 import { Logo } from "../logo/Logo";
 import AuthContext from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { SearchComponent } from "../searchBar/SearchBar";
 
 const resources = [
     {
