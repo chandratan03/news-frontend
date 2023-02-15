@@ -11,9 +11,9 @@ const user = {
 };
 
 export default function ProfilePage() {
-    const { user, onSubmit } = UseProfile();
+    const { userObject, onSubmit, previewImage, setPreviewImage } =
+        UseProfile();
 
-    const userObject = user ? JSON.parse(user) : null;
     return (
         <div>
             <Header />
@@ -36,38 +36,51 @@ export default function ProfilePage() {
                                     <div className="mt-6 flex justify-center">
                                         <div className="mt-6 lg:mt-0 lg:ml-6 flex-grow-0 flex-shrink-0">
                                             <div className="relative rounded-full overflow-hidden">
-                                                {userObject?.image_url ? (
+                                                {previewImage && (
                                                     <img
                                                         className="relative rounded-full w-40 h-40"
-                                                        src={
-                                                            userObject?.image_url
-                                                        }
-                                                        alt=""
+                                                        src={previewImage}
+                                                        alt="#"
                                                     />
-                                                ) : (
-                                                    <span className="inline-block h-40 w-40 rounded-full overflow-hidden bg-gray-100">
-                                                        <svg
-                                                            className="h-full w-full text-gray-300"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 24 24"
-                                                        >
-                                                            <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                                        </svg>
-                                                    </span>
                                                 )}
+                                                {!previewImage &&
+                                                    (userObject?.image_url ? (
+                                                        <img
+                                                            className="relative rounded-full w-40 h-40"
+                                                            src={
+                                                                userObject?.image_url
+                                                            }
+                                                            alt=""
+                                                        />
+                                                    ) : (
+                                                        <span className="inline-block h-40 w-40 rounded-full overflow-hidden bg-gray-100">
+                                                            <svg
+                                                                className="h-full w-full text-gray-300"
+                                                                fill="currentColor"
+                                                                viewBox="0 0 24 24"
+                                                            >
+                                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                            </svg>
+                                                        </span>
+                                                    ))}
+
                                                 <label
                                                     htmlFor="image"
                                                     className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
                                                 >
                                                     <span>Change</span>
-                                                    <span className="sr-only">
-                                                        {" "}
-                                                        image
-                                                    </span>
                                                     <input
                                                         type="file"
                                                         id="image"
                                                         name="image"
+                                                        onChange={(event) => {
+                                                            setPreviewImage(
+                                                                URL.createObjectURL(
+                                                                    event.target
+                                                                        .files[0]
+                                                                )
+                                                            );
+                                                        }}
                                                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
                                                     />
                                                 </label>
