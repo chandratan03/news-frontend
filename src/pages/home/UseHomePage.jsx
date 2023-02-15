@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getNews } from "../../apis/news";
+import { getParamsFromSearchParams } from "../../utils/common";
 
 export const useHomePage = () => {
     let [news, setNews] = useState([]);
@@ -33,15 +34,7 @@ export const useHomePage = () => {
         let params = {
             page: currentPage + 1,
         };
-        if (searchParams.get("query") !== undefined) {
-            params["query"] = searchParams.get("query");
-        }
-        if (searchParams.get("date") !== undefined) {
-            params["date"] = searchParams.get("date");
-        }
-        if (searchParams.get("category") !== undefined) {
-            params["category"] = searchParams.get("category");
-        }
+        params = { ...params, ...getParamsFromSearchParams(searchParams) };
         return params;
     };
 
