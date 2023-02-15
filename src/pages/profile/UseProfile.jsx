@@ -7,7 +7,7 @@ const UseProfile = () => {
     const { user, token, isAuth, setUser, setToken, setIsAuth } =
         useContext(AuthContext);
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event)  => {
         event.preventDefault();
         let firstName = event.target.first_name.value;
         let lastName = event.target.last_name.value;
@@ -16,7 +16,13 @@ const UseProfile = () => {
         let image = event.target.image.files
             ? event.target.image.files[0]
             : undefined;
-        updateAccount(firstName, lastName, password, confirmPassword, image);
+        let response = await updateAccount(firstName, lastName, password, confirmPassword, image);
+        if (response.status === 200) {
+            let userData = JSON.stringify(response.data.data);
+            sessionStorage.setItem("user", userData);
+            setUser(userData);
+            window.location.reload();
+        }
     };
 
 
