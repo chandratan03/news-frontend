@@ -1,11 +1,10 @@
 import { Fragment, useContext } from "react";
-import { Popover, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { ChevronDownIcon, SearchIcon } from "@heroicons/react/solid";
+import { Menu, Popover, Transition } from "@headlessui/react";
+import { LogoutIcon, MenuIcon, UserIcon, XIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Logo } from "../logo/Logo";
-import AuthContext from "../../contexts/AuthContext";
-import { Link } from "react-router-dom";
 import { SearchComponent } from "../searchBar/SearchBar";
+import useHeader from "./UseHeader";
 
 const resources = [
     {
@@ -37,7 +36,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-function userLogo(userObject) {
+function userLogo(userObject, onLogout) {
     return !userObject || !userObject.image_url ? (
         <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
             <svg
@@ -49,22 +48,87 @@ function userLogo(userObject) {
             </svg>
         </span>
     ) : (
-        <img
-            className="relative rounded-full w-10 h-10"
-            src={userObject?.image_url}
-            alt=""
-        />
+        <Menu as="div" className="relative inline-block text-left">
+            {({ open }) => (
+                <>
+                    <div>
+                        <Menu.Button>
+                            <img
+                                className="relative rounded-full w-10 h-10"
+                                src={userObject?.image_url}
+                                alt=""
+                            />
+                        </Menu.Button>
+                    </div>
+
+                    <Transition
+                        show={open}
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                    >
+                        <Menu.Items
+                            static
+                            className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+                        >
+                            <div className="py-1">
+                                <Menu.Item>
+                                    {({ active }) => (
+                                        <a
+                                            href="/profile"
+                                            className={classNames(
+                                                active
+                                                    ? "bg-gray-100 text-gray-900"
+                                                    : "text-gray-700",
+                                                "group flex items-center px-4 py-2 text-sm"
+                                            )}
+                                        >
+                                            <UserIcon
+                                                className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                                aria-hidden="true"
+                                            />
+                                            Account Profile
+                                        </a>
+                                    )}
+                                </Menu.Item>
+                                <Menu.Item>
+                                    {({ active }) => (
+                                        <a
+                                            href="#"
+                                            onClick={onLogout}
+                                            className={classNames(
+                                                active
+                                                    ? "bg-gray-100 text-gray-900"
+                                                    : "text-gray-700",
+                                                "group flex items-center px-4 py-2 text-sm"
+                                            )}
+                                        >
+                                            <LogoutIcon
+                                                className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                                aria-hidden="true"
+                                            />
+                                            Logout
+                                        </a>
+                                    )}
+                                </Menu.Item>
+                            </div>
+                        </Menu.Items>
+                    </Transition>
+                </>
+            )}
+        </Menu>
     );
 }
 
 export default function Header() {
-    const { user, token, isAuth, setUser, setToken, setIsAuth } =
-        useContext(AuthContext);
-
-    const userObject = user ? JSON.parse(user) : null;
+    const { userObject, onLogout, isAuth } = useHeader();
 
     return (
-        <Popover className="relative">
+        <Popover className="relative z-50">
             {({ open }) => (
                 <>
                     <div className="flex justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
@@ -184,12 +248,7 @@ export default function Header() {
                                     </a>
                                 </div>
                             ) : (
-                                <a
-                                    href="/profile"
-                                    className="text-base font-medium text-gray-500 hover:text-gray-900"
-                                >
-                                    {userLogo(userObject)}
-                                </a>
+                                userLogo(userObject, onLogout)
                             )}
                         </div>
                     </div>
@@ -241,41 +300,57 @@ export default function Header() {
                                         >
                                             Docs
                                         </a>
-
-                                        <a
-                                            href="#"
-                                            className="text-base font-medium text-gray-900 hover:text-gray-700"
-                                        >
-                                            Enterprise
-                                        </a>
-                                        {resources.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={item.href}
-                                                className="text-base font-medium text-gray-900 hover:text-gray-700"
-                                            >
-                                                {item.name}
-                                            </a>
-                                        ))}
                                     </div>
 
-                                    <div className="mt-6">
-                                        <a
-                                            href="/register"
-                                            className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                                        >
-                                            Sign up
-                                        </a>
-                                        <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                            Already have an account?{" "}
+                                    {!isAuth ? (
+                                        <div className="mt-6">
                                             <a
-                                                href="/login"
-                                                className="text-indigo-600 hover:text-indigo-500"
+                                                href="/register"
+                                                className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                                             >
-                                                Sign in
+                                                Sign up
                                             </a>
-                                        </p>
-                                    </div>
+                                            <p className="mt-6 text-center text-base font-medium text-gray-500">
+                                                Already have an account?{" "}
+                                                <a
+                                                    href="/login"
+                                                    className="text-indigo-600 hover:text-indigo-500"
+                                                >
+                                                    Sign in
+                                                </a>
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="relative mt-6">
+                                                <div
+                                                    className="absolute inset-0 flex items-center"
+                                                    aria-hidden="true"
+                                                >
+                                                    <div className="w-full border-t border-gray-300" />
+                                                </div>
+                                                <div className="relative flex justify-center">
+                                                    <span className="px-2 bg-white text-sm text-gray-500"></span>
+                                                </div>
+                                            </div>
+                                            <div className="mt-6">
+                                                <a
+                                                    href=""
+                                                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                                                >
+                                                    Account Profile
+                                                </a>
+                                                <p className="mt-6 text-center text-base font-medium text-gray-500">
+                                                    <button
+                                                        onClick={onLogout}
+                                                        className="text-indigo-600 hover:text-indigo-500"
+                                                    >
+                                                        Logout
+                                                    </button>
+                                                </p>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </Popover.Panel>

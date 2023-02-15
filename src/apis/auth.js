@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
     LOGIN_V1_URL,
+    LOGOUT_V1_URL,
     REGISTER_V1_URL,
     UPDATE_ACCOUNT_V1_URL,
 } from "../constants/api";
@@ -16,6 +17,18 @@ export function login(email, password) {
         });
     return result;
 }
+
+export function logout() {
+    let result = undefined;
+    result = customAxios
+        .post(LOGOUT_V1_URL)
+        .catch(function (error) {
+            console.error(error);
+            return error.response;
+        });
+    return result;
+}
+
 
 export function register(
     firstName,
