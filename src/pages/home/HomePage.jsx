@@ -33,6 +33,7 @@ export default function HomePage() {
                 dataLength={news.length}
                 next={loadNews}
                 hasMore={hasMore}
+                style={{"overflow": "visible !important"}}
                 loader={
                     <div className="flex w-full items-center justify-center">
                         <LoadingIcon />
@@ -42,7 +43,7 @@ export default function HomePage() {
                     <p style={{ textAlign: "center" }}>End of the news</p>
                 }
             >
-                <ul className="space-y-3 max-w-[1140px]">
+                <ul className="space-y-3">
                     {news.map((newsElement, index) => {
                         let newsContributors = newsElement.news_contributors;
                         let contributorsName = "";
