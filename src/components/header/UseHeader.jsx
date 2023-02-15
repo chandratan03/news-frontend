@@ -16,6 +16,8 @@ const useHeader = () => {
             setToken(null);
             setIsAuth(false);
             sessionStorage.clear();
+            navigate("/");
+            navigate(0);
         }
     };
 

@@ -9,11 +9,14 @@ export default function Register() {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <img
-                    className="mx-auto h-12 w-auto"
-                    src="logo192.png"
-                    alt="Workflow"
-                />
+                <a href="/">
+                    <img
+                        className="mx-auto h-12 w-auto"
+                        src="logo192.png"
+                        alt="Workflow"
+                    />
+                </a>
+
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 ">
                     Sign up to News
                 </h2>

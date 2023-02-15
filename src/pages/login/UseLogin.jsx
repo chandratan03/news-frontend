@@ -25,8 +25,8 @@ const useLogin = () => {
             setUser(sessionStorage.getItem("user"));
             setToken(sessionStorage.getItem("token"));
             setIsAuth(
-                sessionStorage.getItem("user") &&
-                    sessionStorage.getItem("token")
+                sessionStorage.getItem("user") != null &&
+                    sessionStorage.getItem("token") != null
             );
             axios.defaults.headers.common = {
                 Authorization: `Bearer ${token}`,
