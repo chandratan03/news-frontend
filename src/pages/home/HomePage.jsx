@@ -22,10 +22,10 @@ export default function HomePage() {
                     <CustomDatePicker />
                 </div>
                 <div className="mr-2 mb-2">
-                    <CustomCategoryDropDown/>
+                    <CustomSourceDropDown />
                 </div>
                 <div className="mb-2">
-                    <CustomSourceDropDown/>
+                    <CustomCategoryDropDown />
                 </div>
             </div>
 

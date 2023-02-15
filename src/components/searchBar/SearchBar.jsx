@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import useSearch from "./UseSearch";
 
 export function SearchComponent() {
-    const { searchQuery, setSearchQuery, searchParams, setSearchParams } =
+    const { searchQuery, setSearchQuery, searchParams, setSearchParams, onSubmit } =
         useSearch();
 
     useEffect(() => {
@@ -11,7 +11,7 @@ export function SearchComponent() {
     }, []);
 
     return (
-        <form action="/" className="flex-1 flex justify-center lg:justify-end">
+        <form action="/" onSubmit={onSubmit} className="flex-1 flex justify-center lg:justify-end">
             <div className="w-full px-2 lg:px-6">
                 <div className="relative text-gray-500 focus-within:text-gray-400">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

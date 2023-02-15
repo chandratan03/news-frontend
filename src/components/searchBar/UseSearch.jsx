@@ -5,7 +5,24 @@ const useSearch = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchQuery, setSearchQuery] = useState(searchParams.get("query"));
 
-    return { searchQuery, setSearchQuery, searchParams, setSearchParams };
+    const onSubmit = (event) => {
+        event.preventDefault();
+        let params = {};
+        for (const [key, value] of searchParams.entries()) {
+            params[key] = value;
+        }
+        params["query"] = event.target.query.value;
+        setSearchParams({ ...params });
+        window.location.reload();
+    };
+
+    return {
+        searchQuery,
+        setSearchQuery,
+        searchParams,
+        setSearchParams,
+        onSubmit,
+    };
 };
 
 export default useSearch;
