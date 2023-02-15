@@ -1,15 +1,19 @@
+import { LocalizationProvider } from "@mui/x-date-pickers";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
 import "./index.css";
 import AuthProvider from "./providers/AuthProvider";
 import reportWebVitals from "./reportWebVitals";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
     <React.StrictMode>
-        <AuthProvider child={<App />} />
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+            <AuthProvider child={<App />} />
+        </LocalizationProvider>
     </React.StrictMode>
 );
 

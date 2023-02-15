@@ -9,23 +9,40 @@ export const useHomePage = () => {
     let [currentPage, setCurrentPage] = useState(0);
     const [searchParams, setSearchParam] = useSearchParams();
 
-    const loadNews = async () => {
+    const loadNews = async (refresh = false) => {
+        if (refresh === true) {
+            news = [];
+            currentPage = 0;
+        }
         if (lastPage != 0 && currentPage === lastPage) {
             setHasMore(false);
             return;
         }
         if (hasMore == false) return;
 
+        let params = createParams();
+        let newsResponse = await getNews(params);
+        let pagination = newsResponse.data;
+
+        setLastPage(pagination.data.last_page);
+        setCurrentPage(pagination.data.current_page);
+        setNews(news.concat(pagination.data.data));
+    };
+
+    const createParams = () => {
         let params = {
             page: currentPage + 1,
-            query: searchParams.get("query"),
         };
-
-        let newsResponse = await getNews(params);
-
-        setLastPage(newsResponse.data.data.last_page);
-        setCurrentPage(newsResponse.data.data.current_page);
-        setNews(news.concat(newsResponse.data.data.data));
+        if (searchParams.get("query") !== undefined) {
+            params["query"] = searchParams.get("query");
+        }
+        if (searchParams.get("date") !== undefined) {
+            params["date"] = searchParams.get("date");
+        }
+        if (searchParams.get("category") !== undefined) {
+            params["category"] = searchParams.get("category");
+        }
+        return params;
     };
 
     return {

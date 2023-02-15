@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from "../../components/header/Header";
 import NewsCard from "../../components/newsCard/NewsCard";
 import { useHomePage } from "./UseHomePage";
 import InfiniteScroll from "react-infinite-scroll-component";
-
+import LoadingIcon from "../../components/icons/LoadingIcon";
+import CustomDatePicker from "../../components/datePicker/CustomDatePicker";
+import CustomCategoryDropDown from "../../components/category/CustomCategoryDropDown";
+import CustomSourceDropDown from "../../components/sources/CustomSourceDropDown";
 export default function HomePage() {
     const { news, loadNews, hasMore } = useHomePage();
 
@@ -13,12 +16,28 @@ export default function HomePage() {
 
     return (
         <>
-            <Header/>
+            <Header />
+            <div className="p-6 flex flex-wrap justify-start items-center">
+                <div className="mr-2 mb-2">
+                    <CustomDatePicker />
+                </div>
+                <div className="mr-2 mb-2">
+                    <CustomCategoryDropDown/>
+                </div>
+                <div className="mb-2">
+                    <CustomSourceDropDown/>
+                </div>
+            </div>
+
             <InfiniteScroll
                 dataLength={news.length}
                 next={loadNews}
                 hasMore={hasMore}
-                loader={<h4>Loading...</h4>}
+                loader={
+                    <div className="flex w-full items-center justify-center">
+                        <LoadingIcon />
+                    </div>
+                }
                 endMessage={
                     <p style={{ textAlign: "center" }}>End of the news</p>
                 }
@@ -35,7 +54,10 @@ export default function HomePage() {
                             contributorsName += contribName;
                         });
                         return (
-                            <li key={"news-"+index} className="bg-white shadow overflow-hidden rounded-md px-6 py-4 hover:bg-gray-50 ">
+                            <li
+                                key={"news-" + index}
+                                className="bg-white shadow overflow-hidden rounded-md px-6 py-4 hover:bg-gray-50 "
+                            >
                                 <NewsCard
                                     imageUrl={newsElement.news_image_url}
                                     title={newsElement.news_title}
