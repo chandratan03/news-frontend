@@ -37,9 +37,9 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-function userLogo() {
-    return (
-        <span className="inline-block h-8 w-8 rounded-full overflow-hidden bg-gray-100">
+function userLogo(userObject) {
+    return !userObject || !userObject.image_url ? (
+        <span className="inline-block h-10 w-10 rounded-full overflow-hidden bg-gray-100">
             <svg
                 className="h-full w-full text-gray-300"
                 fill="currentColor"
@@ -48,12 +48,20 @@ function userLogo() {
                 <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
         </span>
+    ) : (
+        <img
+            className="relative rounded-full w-10 h-10"
+            src={userObject?.image_url}
+            alt=""
+        />
     );
 }
 
 export default function Header() {
     const { user, token, isAuth, setUser, setToken, setIsAuth } =
         useContext(AuthContext);
+
+    const userObject = user ? JSON.parse(user) : null;
 
     return (
         <Popover className="relative">
@@ -180,7 +188,7 @@ export default function Header() {
                                     href="/profile"
                                     className="text-base font-medium text-gray-500 hover:text-gray-900"
                                 >
-                                    {userLogo()}
+                                    {userLogo(userObject)}
                                 </a>
                             )}
                         </div>

@@ -9,12 +9,14 @@ export default function useRegister() {
     const onRegister = async (event) => {
         event.preventDefault();
 
-        const name = event.target.name.value;
+        const firstName = event.target.first_name.value;
+        const lastName = event.target.last_name.value;
+        
         const email = event.target.email.value;
         const password = event.target.password.value;
         const confirmPassword = event.target.password_confirmation.value;
 
-        let result = await register(name, email, password, confirmPassword);
+        let result = await register(firstName, lastName, email, password, confirmPassword);
         if (result.status === 201) {
             let data = result.data.data;
             sessionStorage.setItem("user", JSON.stringify(data.user));
@@ -24,6 +26,7 @@ export default function useRegister() {
             setErrorMsg(result.data.message);
         }
     };
+    
 
     return {
         errorMsg,

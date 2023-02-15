@@ -42,16 +42,34 @@ export default function Register() {
                     <form className="space-y-6" onSubmit={onRegister}>
                         <div>
                             <label
-                                htmlFor="name"
+                                htmlFor="first_name"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Name
+                                First Name
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="name"
-                                    name="name"
-                                    type="name"
+                                    id="first_name"
+                                    name="first_name"
+                                    type="text"
+                                    autoComplete="name"
+                                    required
+                                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="last_name"
+                                className="block text-sm font-medium text-gray-700"
+                            >
+                                Last Name
+                            </label>
+                            <div className="mt-1">
+                                <input
+                                    id="last_name"
+                                    name="last_name"
+                                    type="text"
                                     autoComplete="name"
                                     required
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../apis/auth";
@@ -27,6 +28,7 @@ const useLogin = () => {
                 sessionStorage.getItem("user") !== undefined &&
                     sessionStorage.getItem("token") !== undefined
             );
+            axios.defaults.headers.common = {'Authorization': `Bearer ${token}`}
 
             navigate("/");
         } else if (result.status === 401) {
