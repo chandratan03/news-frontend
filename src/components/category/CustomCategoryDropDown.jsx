@@ -16,7 +16,7 @@ const CustomCategoryDropDown = () => {
 
     return (
         <>
-            {categories != null  && categories.length > 0 && (
+            {categories != null && categories.length > 0 && (
                 <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
                         <InputLabel>Category</InputLabel>
@@ -30,6 +30,10 @@ const CustomCategoryDropDown = () => {
                                 return (
                                     <MenuItem
                                         value={category.id}
+                                        selected={
+                                            selectedCategory?.id ===
+                                            category?.id
+                                        }
                                         className="capitalize"
                                     >
                                         {category.news_category_name}

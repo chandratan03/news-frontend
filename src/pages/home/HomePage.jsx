@@ -73,7 +73,7 @@ export default function HomePage() {
                                     publishedDate={
                                         newsElement?.news_publication_date
                                     }
-                                    source={newsElement?.news_source_data}
+                                    source={newsElement?.source?.source_name}
                                     articleLink={newsElement?.news_web_url}
                                     creator={contributorsName}
                                 />

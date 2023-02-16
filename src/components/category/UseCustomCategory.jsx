@@ -20,16 +20,14 @@ const useCustomCategory = () => {
     const loadCategories = async () => {
         let response = await getNewsCategories();
         let listCategory = response.data.data;
-       
 
         let findSelectedCategory = "";
         listCategory.forEach((category) => {
-            if (category.id.toString() === searchParams.get("category")) {
+            if (category.id.toString() == searchParams.get("category")) {
                 findSelectedCategory = category;
                 return;
             }
         });
-        console.log(categories !== [])
         setSelectedCategory(findSelectedCategory);
         setCategories(listCategory);
     };
