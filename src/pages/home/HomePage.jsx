@@ -43,6 +43,14 @@ export default function HomePage() {
                         <CircularProgress />
                     </div>
                 }
+                endMessage={
+                    hasMore === false &&
+                    news.length === 0 && (
+                        <div className="flex w-full items-center justify-center my-40">
+                            <h3>There's no any news</h3>
+                        </div>
+                    )
+                }
             >
                 <ul className="space-y-3">
                     {news.map((newsElement, index) => {

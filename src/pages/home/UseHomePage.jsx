@@ -28,12 +28,11 @@ export const useHomePage = () => {
 
         setLastPage(pagination.data.last_page);
         setCurrentPage(pagination.data.current_page);
-        setNews(news.concat(pagination.data.data));
 
-        if (
-            pagination.data.data &&
-            pagination.data.data.length % PAGE_SIZE > 0
-        ) {
+        const concatedNews = news.concat(pagination.data.data);
+        setNews(concatedNews);
+
+        if (concatedNews.length === 0) {
             setHasMore(false);
         }
     };

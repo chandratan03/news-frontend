@@ -30,7 +30,7 @@ const AuthorSection = () => {
                 </div>
             )}
             {!isLoading && !contributor && (
-                <div className="flex flex-col p-6 flex-wrap justify-start items-center">
+                <div className="flex flex-col p-6 flex-wrap justify-start">
                     <div className="mb-6">
                         <h3 className="text-xl font-bold text-gray-700">
                             Recommended Authors
@@ -63,11 +63,7 @@ const AuthorSection = () => {
                                                 href="#"
                                                 className="focus:outline-none"
                                             >
-                                                <span
-                                                    className="absolute inset-0"
-                                                    aria-hidden="true"
-                                                />
-                                                <p className="text-sm font-medium text-gray-900">
+                                                <p className="text-sm font-medium text-gray-900  text-ellipsis overflow-hidden">
                                                     {
                                                         contributor.contributor_name
                                                     }
