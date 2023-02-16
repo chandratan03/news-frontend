@@ -25,11 +25,11 @@ const CustomSourceDropDown = () => {
                             defaultValue={selectedSource?.id}
                             onChange={handleChange}
                         >
-                            {sources.map((source, index) => {
+                            {sources.map((source) => {
                                 return (
                                     <MenuItem
                                         selected={
-                                            source.id === selectedSource.id
+                                            source.id === selectedSource?.id
                                         }
                                         value={source.id}
                                     >
