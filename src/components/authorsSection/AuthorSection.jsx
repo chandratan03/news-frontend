@@ -15,10 +15,6 @@ const AuthorSection = () => {
         loadContributors();
     }, []);
 
-    useEffect(() => {
-        console.log(contributor);
-    }, [contributor]);
-
     return (
         <>
             {isLoading && (
