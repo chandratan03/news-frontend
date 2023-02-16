@@ -10,15 +10,13 @@ const useHeader = () => {
 
     const userObject = user ? JSON.parse(user) : null;
     const onLogout = async () => {
-        let response = await logout();
-        if (response.status == 200) {
-            setUser(null);
-            setToken(null);
-            setIsAuth(false);
-            sessionStorage.clear();
-            navigate("/");
-            navigate(0);
-        }
+        await logout();
+        setUser(null);
+        setToken(null);
+        setIsAuth(false);
+        sessionStorage.clear();
+        navigate("/");
+        navigate(0);
     };
 
     return { userObject, isAuth, onLogout };

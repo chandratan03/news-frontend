@@ -3,11 +3,11 @@ import Header from "../../components/header/Header";
 import NewsCard from "../../components/newsCard/NewsCard";
 import { useHomePage } from "./UseHomePage";
 import InfiniteScroll from "react-infinite-scroll-component";
-import LoadingIcon from "../../components/icons/LoadingIcon";
 import CustomDatePicker from "../../components/datePicker/CustomDatePicker";
 import CustomCategoryDropDown from "../../components/category/CustomCategoryDropDown";
 import CustomSourceDropDown from "../../components/sources/CustomSourceDropDown";
 import AuthorSection from "../../components/authorsSection/AuthorSection";
+import { CircularProgress } from "@mui/material";
 export default function HomePage() {
     const { news, loadNews, hasMore } = useHomePage();
 
@@ -42,12 +42,9 @@ export default function HomePage() {
                 hasMore={hasMore}
                 style={{ overflow: "visible !important" }}
                 loader={
-                    <div className="flex w-full items-center justify-center">
-                        <LoadingIcon />
+                    <div className="flex w-full items-center justify-center mt-40">
+                        <CircularProgress/>
                     </div>
-                }
-                endMessage={
-                    <p style={{ textAlign: "center" }}>End of the news</p>
                 }
             >
                 <ul className="space-y-3">

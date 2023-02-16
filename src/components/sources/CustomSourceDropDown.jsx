@@ -17,29 +17,23 @@ const CustomSourceDropDown = () => {
     return (
         <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
-                {sources.length > 0 && (
-                    <>
-                        <InputLabel>Source</InputLabel>
-                        <Select
-                            label="source"
-                            defaultValue={selectedSource?.id}
-                            onChange={handleChange}
-                        >
-                            {sources.map((source) => {
-                                return (
-                                    <MenuItem
-                                        selected={
-                                            source.id === selectedSource?.id
-                                        }
-                                        value={source.id}
-                                    >
-                                        {source.source_name}
-                                    </MenuItem>
-                                );
-                            })}
-                        </Select>
-                    </>
-                )}
+                <InputLabel>Source</InputLabel>
+                <Select
+                    label="source"
+                    defaultValue={selectedSource?.id}
+                    onChange={handleChange}
+                >
+                    {sources.map((source) => {
+                        return (
+                            <MenuItem
+                                selected={source.id === selectedSource?.id}
+                                value={source.id}
+                            >
+                                {source.source_name}
+                            </MenuItem>
+                        );
+                    })}
+                </Select>
             </FormControl>
         </Box>
     );

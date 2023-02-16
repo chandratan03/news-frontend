@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getNews } from "../../apis/news";
+import { PAGE_SIZE } from "../../constants/homepage";
 import { getParamsFromSearchParams } from "../../utils/common";
 
 export const useHomePage = () => {
@@ -11,7 +12,7 @@ export const useHomePage = () => {
     const [searchParams, setSearchParam] = useSearchParams();
 
     const loadNews = async (refresh = false) => {
-        if (refresh === true) {
+        if (refresh) {
             news = [];
             currentPage = 0;
         }
@@ -28,6 +29,13 @@ export const useHomePage = () => {
         setLastPage(pagination.data.last_page);
         setCurrentPage(pagination.data.current_page);
         setNews(news.concat(pagination.data.data));
+
+        if (
+            pagination.data.data &&
+            pagination.data.data.length % PAGE_SIZE > 0
+        ) {
+            hasMore(false);
+        }
     };
 
     const createParams = () => {

@@ -6,12 +6,12 @@ import useCustomDatePicker from "./UseCustomDatePicker";
 const CustomDatePicker = () => {
     const { onChangeDate, selectedDate } = useCustomDatePicker();
     return (
-        <DatePicker
-            label="Published Date"
-            onChange={onChangeDate}
-            renderInput={(params) => <TextField {...params} />}
-            value={selectedDate}
-        />
+            <DatePicker
+                label="Published Date"
+                onChange={onChangeDate}
+                renderInput={(params) => <TextField {...params} />}
+                value={selectedDate}
+            />
     );
 };
 

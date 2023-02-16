@@ -7,11 +7,13 @@ import AuthContext from "../../contexts/AuthContext";
 const useLogin = () => {
     const navigate = useNavigate();
     const [errorMsg, setErrorMsg] = useState(undefined);
+    const [isSubmit, setIsSubmit] = useState(false);
     const { user, token, isAuth, setUser, setToken, setIsAuth } =
         useContext(AuthContext);
 
     const onLogin = async (event) => {
         event.preventDefault();
+        setIsSubmit(true);
         const email = event.target.email.value;
         const password = event.target.password.value;
 
@@ -37,12 +39,14 @@ const useLogin = () => {
         } else if (result.status === 401) {
             setErrorMsg(result.data.message);
         }
+        setIsSubmit(false);
     };
 
     return {
         errorMsg,
         setErrorMsg,
         onLogin,
+        isSubmit,
     };
 };
 

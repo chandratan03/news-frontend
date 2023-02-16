@@ -8,8 +8,11 @@ export default function useRegister() {
     const [errorMsg, setErrorMsg] = useState(undefined);
     const { user, token, isAuth, setUser, setToken, setIsAuth } =
         useContext(AuthContext);
+    const [isSubmit, setIsSubmit] = useState(false);
+
     const onRegister = async (event) => {
         event.preventDefault();
+        setIsSubmit(true);
 
         const firstName = event.target.first_name.value;
         const lastName = event.target.last_name.value;
@@ -40,11 +43,13 @@ export default function useRegister() {
         } else {
             setErrorMsg(result.data.message);
         }
+        setIsSubmit(false);
     };
 
     return {
         errorMsg,
         setErrorMsg,
         onRegister,
+        isSubmit
     };
 }
