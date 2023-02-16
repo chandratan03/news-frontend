@@ -34,7 +34,7 @@ export const useHomePage = () => {
             pagination.data.data &&
             pagination.data.data.length % PAGE_SIZE > 0
         ) {
-            hasMore(false);
+            setHasMore(false);
         }
     };
 

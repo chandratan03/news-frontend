@@ -18,12 +18,9 @@ export default function HomePage() {
     return (
         <>
             <Header />
-            <div className="p-6 flex flex-wrap justify-start items-center">
-                <AuthorSection />
-            </div>
-
+            <AuthorSection />
             <div className="p-6 pb-0">
-                <h3 className="text-xl font-bold text-gray-700">News</h3>
+                <h3 className="text-2xl font-bold text-gray-900">News</h3>
             </div>
             <div className="p-6 flex flex-wrap justify-start items-center">
                 <div className="mr-2 mb-2">
@@ -42,8 +39,8 @@ export default function HomePage() {
                 hasMore={hasMore}
                 style={{ overflow: "visible !important" }}
                 loader={
-                    <div className="flex w-full items-center justify-center mt-40">
-                        <CircularProgress/>
+                    <div className="flex w-full items-center justify-center my-40">
+                        <CircularProgress />
                     </div>
                 }
             >
@@ -51,7 +48,7 @@ export default function HomePage() {
                     {news.map((newsElement, index) => {
                         let newsContributors = newsElement?.news_contributors;
                         let contributorsName = "";
-                        if(!newsContributors) return <></>;
+                        if (!newsContributors) return <></>;
                         newsContributors.map((newsContributor) => {
                             let contribName =
                                 newsContributor.contributor.contributor_name;

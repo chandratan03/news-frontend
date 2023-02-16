@@ -16,34 +16,31 @@ const CustomCategoryDropDown = () => {
 
     return (
         <>
-            {categories != null && categories.length > 0 && (
-                <Box sx={{ minWidth: 120 }}>
-                    <FormControl fullWidth>
-                        <InputLabel>Category</InputLabel>
-                        <Select
-                            defaultValue={selectedCategory?.id}
-                            label="Category"
-                            onChange={handleChange}
-                            className="capitalize"
-                        >
-                            {categories.map((category) => {
-                                return (
-                                    <MenuItem
-                                        value={category.id}
-                                        selected={
-                                            selectedCategory?.id ===
-                                            category?.id
-                                        }
-                                        className="capitalize"
-                                    >
-                                        {category.news_category_name}
-                                    </MenuItem>
-                                );
-                            })}
-                        </Select>
-                    </FormControl>
-                </Box>
-            )}
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                        defaultValue={selectedCategory?.id}
+                        label="Category"
+                        onChange={handleChange}
+                        className="capitalize"
+                    >
+                        {categories.map((category) => {
+                            return (
+                                <MenuItem
+                                    value={category.id}
+                                    selected={
+                                        selectedCategory?.id === category?.id
+                                    }
+                                    className="capitalize"
+                                >
+                                    {category.news_category_name}
+                                </MenuItem>
+                            );
+                        })}
+                    </Select>
+                </FormControl>
+            </Box>
         </>
     );
 };
