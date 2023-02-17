@@ -8,7 +8,7 @@ export default function NewsCard(props) {
             <div className="sm:flex">
                 <div className="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
                     <img
-                        className="sm:h-48 sm:w-48 border border-gray-300 bg-white text-gray-300 object-cover"
+                        className="sm:h-48 sm:w-48 border border-gray-300 bg-white text-gray-300 object-cover rounded-sm"
                         src={imageUrl}
                         alt=""
                     />

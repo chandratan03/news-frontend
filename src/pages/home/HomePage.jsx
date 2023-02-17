@@ -109,7 +109,7 @@ export default function HomePage() {
                                 return (
                                     <li
                                         key={"news-" + index}
-                                        className="bg-white shadow overflow-hidden rounded-md px-6 py-4 hover:bg-gray-50 "
+                                        className="bg-white overflow-hidden px-6 py-4 hover:bg-gray-50 border-b-[1px]"
                                     >
                                         <NewsCard
                                             imageUrl={
@@ -162,7 +162,7 @@ export default function HomePage() {
                                     return (
                                         <li
                                             key={"news-" + index}
-                                            className="bg-white shadow overflow-hidden rounded-md px-6 py-4 hover:bg-gray-50 "
+                                            className="bg-white overflow-hidden px-6 py-4 hover:bg-gray-50 border-b-[1px]"
                                         >
                                             <NewsCard
                                                 imageUrl={
