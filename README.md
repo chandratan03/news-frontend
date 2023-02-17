@@ -4,5 +4,5 @@
 
 1. git clone https://github.com/chandratan03/news-frontend.git
 2. open up terminal and go to the project
-3. Run this command `docker-compose run -d -p 3000:3000 --name news-frontend news-frontend`
+3. Run this command `docker-compose up -d --build`
 4. Congratuliation!, you will be able to access the application via http://localhost:3000/
