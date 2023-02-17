@@ -76,7 +76,7 @@ export default function ProfilePage() {
                     </Tabs>
                 </Box>
                 <TabPanel value={tabValue} index={0}>
-                    <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
+                    <div className="flex items-center justify-center p-6 mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh] w-full">
                         <div className="bg-white rounded-lg shadow overflow-hidden">
                             <div className="justify-center">
                                 {profileErrorMsg && (
@@ -256,205 +256,214 @@ export default function ProfilePage() {
                     </div>
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                    <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh] max-w-[440px]">
+                    <div className="flex items-center justify-center p-6 mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
                         <div className="bg-white rounded-lg shadow overflow-hidden">
                             <div className="justify-center">
-                                {personalizeErrorMsg && (
-                                    <div className="bg-red-50 border-l-4 border-red-400 p-4">
+                                <div className="py-6 px-4 sm:p-6 lg:pb-8">
+                                    {personalizeErrorMsg && (
+                                        <div className="bg-red-50 border-l-4 border-red-400 p-4">
+                                            <div className="flex">
+                                                <div className="flex-shrink-0">
+                                                    <XCircleIcon
+                                                        className="h-5 w-5 text-red-400"
+                                                        aria-hidden="true"
+                                                    />
+                                                </div>
+                                                <div className="ml-3">
+                                                    <p className="text-sm text-red-700">
+                                                        {personalizeErrorMsg}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                    <div className="rounded-md bg-yellow-50 p-4">
                                         <div className="flex">
                                             <div className="flex-shrink-0">
-                                                <XCircleIcon
-                                                    className="h-5 w-5 text-red-400"
+                                                <ExclamationIcon
+                                                    className="h-5 w-5 text-yellow-400"
                                                     aria-hidden="true"
                                                 />
                                             </div>
                                             <div className="ml-3">
-                                                <p className="text-sm text-red-700">
-                                                    {personalizeErrorMsg}
-                                                </p>
+                                                <h3 className="text-sm font-medium text-yellow-800">
+                                                    Notes
+                                                </h3>
+                                                <div className="mt-2 text-sm text-yellow-700">
+                                                    <p>
+                                                        If you provide some
+                                                        personalization, it will
+                                                        be shown on the home
+                                                        page as recommended
+                                                        news.
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                )}
-                                <div className="rounded-md bg-yellow-50 p-4">
-                                    <div className="flex">
-                                        <div className="flex-shrink-0">
-                                            <ExclamationIcon
-                                                className="h-5 w-5 text-yellow-400"
-                                                aria-hidden="true"
-                                            />
-                                        </div>
-                                        <div className="ml-3">
-                                            <h3 className="text-sm font-medium text-yellow-800">
-                                                Notes
-                                            </h3>
-                                            <div className="mt-2 text-sm text-yellow-700">
-                                                <p>
-                                                    If you provide some
-                                                    personalization, it will be
-                                                    shown on the home page as
-                                                    recommended news.
-                                                </p>
+                                    <form
+                                        onSubmit={onSubmitPersonalize}
+                                        className="divide-y divide-gray-200 lg:col-span-9"
+                                        action="#"
+                                        method="POST"
+                                    >
+                                        <div className="py-6 px-4 ">
+                                            <h2 className="text-lg leading-6 font-medium text-gray-900">
+                                                Personalization
+                                            </h2>
+
+                                            <div className="mt-6 grid grid-cols-12 gap-6">
+                                                <div className="col-span-12">
+                                                    <FormControl
+                                                        sx={{ width: "100%" }}
+                                                    >
+                                                        <InputLabel id="set-prefered-category">
+                                                            Category
+                                                        </InputLabel>
+                                                        <Select
+                                                            labelId="set-prefered-category"
+                                                            id="category"
+                                                            multiple
+                                                            value={
+                                                                selectedCategories
+                                                            }
+                                                            defaultValue={
+                                                                selectedCategories
+                                                            }
+                                                            onChange={
+                                                                onHandleCategoryChange
+                                                            }
+                                                            input={
+                                                                <OutlinedInput label="Category" />
+                                                            }
+                                                        >
+                                                            {categories.map(
+                                                                (
+                                                                    newsCategory
+                                                                ) => (
+                                                                    <MenuItem
+                                                                        key={
+                                                                            newsCategory?.id
+                                                                        }
+                                                                        value={
+                                                                            newsCategory?.id
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            newsCategory?.news_category_name
+                                                                        }
+                                                                    </MenuItem>
+                                                                )
+                                                            )}
+                                                        </Select>
+                                                    </FormControl>
+                                                </div>
+
+                                                <div className="col-span-12">
+                                                    <FormControl
+                                                        sx={{ width: "100%" }}
+                                                    >
+                                                        <InputLabel id="set-prefered-source">
+                                                            Source
+                                                        </InputLabel>
+                                                        <Select
+                                                            labelId="set-prefered-source"
+                                                            id="source"
+                                                            multiple
+                                                            value={
+                                                                selectedSources
+                                                            }
+                                                            defaultValue={
+                                                                selectedSources
+                                                            }
+                                                            onChange={
+                                                                onHandleSourceChange
+                                                            }
+                                                            input={
+                                                                <OutlinedInput label="Source" />
+                                                            }
+                                                        >
+                                                            {sources.map(
+                                                                (source) => (
+                                                                    <MenuItem
+                                                                        key={
+                                                                            source?.id
+                                                                        }
+                                                                        value={
+                                                                            source?.id
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            source?.source_name
+                                                                        }
+                                                                    </MenuItem>
+                                                                )
+                                                            )}
+                                                        </Select>
+                                                    </FormControl>
+                                                </div>
+                                                <div className="col-span-12">
+                                                    <FormControl
+                                                        sx={{ width: "100%" }}
+                                                    >
+                                                        <InputLabel id="set-prefered-author">
+                                                            Author
+                                                        </InputLabel>
+                                                        <Select
+                                                            labelId="set-prefered-author"
+                                                            id="author"
+                                                            multiple
+                                                            value={
+                                                                selectedAuthors
+                                                            }
+                                                            defaultValue={
+                                                                selectedAuthors
+                                                            }
+                                                            onChange={
+                                                                onHandleAuthorChange
+                                                            }
+                                                            input={
+                                                                <OutlinedInput label="Author" />
+                                                            }
+                                                        >
+                                                            {authors.map(
+                                                                (author) => (
+                                                                    <MenuItem
+                                                                        key={
+                                                                            author?.id
+                                                                        }
+                                                                        value={
+                                                                            author?.id
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            author?.contributor_name
+                                                                        }
+                                                                    </MenuItem>
+                                                                )
+                                                            )}
+                                                        </Select>
+                                                    </FormControl>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        <div className=" divide-gray-200">
+                                            <div className="py-4 px-4 flex justify-end sm:px-6">
+                                                {isLoadingPersonalize ? (
+                                                    <LoadingIcon />
+                                                ) : (
+                                                    <button
+                                                        type="submit"
+                                                        className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
+                                                    >
+                                                        Save
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <form
-                                    onSubmit={onSubmitPersonalize}
-                                    className="divide-y divide-gray-200 lg:col-span-9"
-                                    action="#"
-                                    method="POST"
-                                >
-                                    <div className="py-6 px-4 ">
-                                        <h2 className="text-lg leading-6 font-medium text-gray-900">
-                                            Personalization
-                                        </h2>
-
-                                        <div className="mt-6 grid grid-cols-12 gap-6">
-                                            <div className="col-span-12">
-                                                <FormControl
-                                                    sx={{ width: "100%" }}
-                                                >
-                                                    <InputLabel id="set-prefered-category">
-                                                        Category
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="set-prefered-category"
-                                                        id="category"
-                                                        multiple
-                                                        value={
-                                                            selectedCategories
-                                                        }
-                                                        defaultValue={
-                                                            selectedCategories
-                                                        }
-                                                        onChange={
-                                                            onHandleCategoryChange
-                                                        }
-                                                        input={
-                                                            <OutlinedInput label="Category" />
-                                                        }
-                                                    >
-                                                        {categories.map(
-                                                            (newsCategory) => (
-                                                                <MenuItem
-                                                                    key={
-                                                                        newsCategory?.id
-                                                                    }
-                                                                    value={
-                                                                        newsCategory?.id
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        newsCategory?.news_category_name
-                                                                    }
-                                                                </MenuItem>
-                                                            )
-                                                        )}
-                                                    </Select>
-                                                </FormControl>
-                                            </div>
-
-                                            <div className="col-span-12">
-                                                <FormControl
-                                                    sx={{ width: "100%" }}
-                                                >
-                                                    <InputLabel id="set-prefered-source">
-                                                        Source
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="set-prefered-source"
-                                                        id="source"
-                                                        multiple
-                                                        value={selectedSources}
-                                                        defaultValue={
-                                                            selectedSources
-                                                        }
-                                                        onChange={
-                                                            onHandleSourceChange
-                                                        }
-                                                        input={
-                                                            <OutlinedInput label="Source" />
-                                                        }
-                                                    >
-                                                        {sources.map(
-                                                            (source) => (
-                                                                <MenuItem
-                                                                    key={
-                                                                        source?.id
-                                                                    }
-                                                                    value={
-                                                                        source?.id
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        source?.source_name
-                                                                    }
-                                                                </MenuItem>
-                                                            )
-                                                        )}
-                                                    </Select>
-                                                </FormControl>
-                                            </div>
-                                            <div className="col-span-12">
-                                                <FormControl
-                                                    sx={{ width: "100%" }}
-                                                >
-                                                    <InputLabel id="set-prefered-author">
-                                                        Author
-                                                    </InputLabel>
-                                                    <Select
-                                                        labelId="set-prefered-author"
-                                                        id="author"
-                                                        multiple
-                                                        value={selectedAuthors}
-                                                        defaultValue={
-                                                            selectedAuthors
-                                                        }
-                                                        onChange={
-                                                            onHandleAuthorChange
-                                                        }
-                                                        input={
-                                                            <OutlinedInput label="Author" />
-                                                        }
-                                                    >
-                                                        {authors.map(
-                                                            (author) => (
-                                                                <MenuItem
-                                                                    key={
-                                                                        author?.id
-                                                                    }
-                                                                    value={
-                                                                        author?.id
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        author?.contributor_name
-                                                                    }
-                                                                </MenuItem>
-                                                            )
-                                                        )}
-                                                    </Select>
-                                                </FormControl>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className=" divide-gray-200">
-                                        <div className="py-4 px-4 flex justify-end sm:px-6">
-                                            {isLoadingPersonalize ? (
-                                                <LoadingIcon />
-                                            ) : (
-                                                <button
-                                                    type="submit"
-                                                    className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
-                                                >
-                                                    Save
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
