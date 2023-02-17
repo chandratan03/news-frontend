@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../apis/auth";
+import { HTTP_CREATED } from "../../constants/common";
 import AuthContext from "../../contexts/AuthContext";
 
 export default function useRegister() {
@@ -28,7 +29,7 @@ export default function useRegister() {
             password,
             confirmPassword
         );
-        if (result.status === 201) {
+        if (result.status == HTTP_CREATED) {
             let data = result.data.data;
             sessionStorage.setItem("user", JSON.stringify(data.user));
             sessionStorage.setItem("token", data.token);

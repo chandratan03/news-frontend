@@ -1,18 +1,21 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Auth from "./components/auth/Auth";
+import NonAuth from "./components/auth/NonAuth";
 import Header from "./components/header/Header";
 import HomePage from "./pages/home/HomePage";
 import Login from "./pages/login/Login";
+import NotFound from "./pages/notFound/NotFound";
 import ProfilePage from "./pages/profile/ProfilePage";
 import Register from "./pages/register/Register";
 
 const router = createBrowserRouter([
     {
         path: "/login",
-        element: <Login />,
+        element: <NonAuth><Login /></NonAuth>,
     },
     {
         path: "/register",
-        element: <Register />,
+        element: <NonAuth><Register /></NonAuth>,
     },
     {
         path: "/",
@@ -20,7 +23,15 @@ const router = createBrowserRouter([
     },
     {
         path: "/profile",
-        element: <ProfilePage />,
+        element: (
+            <Auth>
+                <ProfilePage />
+            </Auth>
+        ),
+    },
+    {
+        path: "*",
+        element: <NotFound />,
     },
 ]);
 

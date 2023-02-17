@@ -3,6 +3,7 @@ import { personalizeAccount } from "../../apis/auth";
 import { getAuthors } from "../../apis/contributor";
 import { getNewsCategories } from "../../apis/news";
 import { getSources } from "../../apis/source";
+import { HTTP_OK } from "../../constants/common";
 import AuthContext from "../../contexts/AuthContext";
 
 const UsePersonalize = () => {
@@ -64,7 +65,7 @@ const UsePersonalize = () => {
             categoriesValue,
             authorsValue
         );
-        if (response.status === 200) {
+        if (response.status == HTTP_OK) {
             let userData = JSON.stringify(response.data.data);
             sessionStorage.setItem("user", userData);
             setUser(userData);

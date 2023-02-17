@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../apis/auth";
+import { HTTP_CREATED, HTTP_UNAUTHORIZED } from "../../constants/common";
 import AuthContext from "../../contexts/AuthContext";
 
 const useLogin = () => {
@@ -18,7 +19,7 @@ const useLogin = () => {
         const password = event.target.password.value;
 
         let result = await login(email, password);
-        if (result.status === 201) {
+        if (result.status == HTTP_CREATED) {
             let data = result.data.data;
 
             sessionStorage.setItem("user", JSON.stringify(data.user));
@@ -36,7 +37,7 @@ const useLogin = () => {
 
             navigate("/");
             navigate(0);
-        } else if (result.status === 401) {
+        } else if (result.status == HTTP_UNAUTHORIZED) {
             setErrorMsg(result.data.message);
         }
         setIsSubmit(false);

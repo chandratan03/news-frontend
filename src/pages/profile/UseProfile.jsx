@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { updateAccount } from "../../apis/auth";
+import { HTTP_OK } from "../../constants/common";
 import AuthContext from "../../contexts/AuthContext";
 
 const UseProfile = () => {
@@ -27,7 +28,7 @@ const UseProfile = () => {
             confirmPassword,
             image
         );
-        if (response.status === 200) {
+        if (response.status === HTTP_OK) {
             let userData = JSON.stringify(response.data.data);
             sessionStorage.setItem("user", userData);
             setUser(userData);
