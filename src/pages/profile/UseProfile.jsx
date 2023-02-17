@@ -7,6 +7,7 @@ const UseProfile = () => {
         useContext(AuthContext);
     const userObject = user ? JSON.parse(user) : null;
     const [previewImage, setPreviewImage] = useState(null);
+    
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -31,6 +32,8 @@ const UseProfile = () => {
             window.location.reload();
         }
     };
+
+   
 
     return {
         userObject,

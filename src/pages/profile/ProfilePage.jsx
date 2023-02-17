@@ -1,6 +1,18 @@
-import { updateAccount } from "../../apis/auth";
+import React, { useEffect } from "react";
+import {
+    Box,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    Tab,
+    Tabs,
+} from "@mui/material";
 import Header from "../../components/header/Header";
 import UseProfile from "./UseProfile";
+import { a11yProps, TabPanel } from "../../components/tabs/CustomTab";
+import UsePersonalize from "./UsePersonalize";
 
 const user = {
     name: "Debbie Lewis",
@@ -14,171 +26,390 @@ export default function ProfilePage() {
     const { userObject, onSubmit, previewImage, setPreviewImage } =
         UseProfile();
 
+    const {
+        onSubmitPersonalize,
+        selectedCategories,
+        setSelectedCategories,
+        onHandleCategoryChange,
+        categories,
+        loadCategories,
+
+        selectedSources,
+        setSelectedSources,
+        sources,
+        setSources,
+        onHandleSourceChange,
+        loadSources,
+
+        selectedAuthors,
+        setSelectedAuthors,
+        authors,
+        setAuthors,
+        onHandleAuthorChange,
+        loadAuthors,
+
+        onLoadDefault,
+    } = UsePersonalize();
+
+    const [tabValue, setTabValue] = React.useState(0);
+
+    const handleChange = (event, newValue) => {
+        setTabValue(newValue);
+    };
+
+    useEffect(() => {
+        loadCategories();
+        loadSources();
+        loadAuthors();
+        onLoadDefault();
+    }, []);
+
     return (
         <div>
             <Header />
-            <main className="relative">
-                <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
-                    <div className="bg-white rounded-lg shadow overflow-hidden">
-                        <div className="justify-center">
-                            <form
-                                onSubmit={onSubmit}
-                                className="divide-y divide-gray-200 lg:col-span-9"
-                                action="#"
-                                method="POST"
-                                encType="multipart/form-data"
-                            >
-                                <div className="py-6 px-4 sm:p-6 lg:pb-8">
-                                    <h2 className="text-lg leading-6 font-medium text-gray-900">
-                                        Profile
-                                    </h2>
+            <Box sx={{ width: "100%" }}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <Tabs
+                        value={tabValue}
+                        onChange={handleChange}
+                        aria-label="basic tabs example"
+                    >
+                        <Tab label="Profile" {...a11yProps(0)} />
+                        <Tab label="Personalize" {...a11yProps(1)} />
+                    </Tabs>
+                </Box>
+                <TabPanel value={tabValue} index={0}>
+                    <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
+                        <div className="bg-white rounded-lg shadow overflow-hidden">
+                            <div className="justify-center">
+                                <form
+                                    onSubmit={onSubmit}
+                                    className="divide-y divide-gray-200 lg:col-span-9"
+                                    action="#"
+                                    method="POST"
+                                    encType="multipart/form-data"
+                                >
+                                    <div className="py-6 px-4 sm:p-6 lg:pb-8">
+                                        <h2 className="text-lg leading-6 font-medium text-gray-900">
+                                            Profile
+                                        </h2>
 
-                                    <div className="mt-6 flex justify-center">
-                                        <div className="mt-6 lg:mt-0 lg:ml-6 flex-grow-0 flex-shrink-0">
-                                            <div className="relative rounded-full overflow-hidden">
-                                                {previewImage && (
-                                                    <img
-                                                        className="relative rounded-full w-40 h-40"
-                                                        src={previewImage}
-                                                        alt="#"
-                                                    />
-                                                )}
-                                                {!previewImage &&
-                                                    (userObject?.image_url ? (
+                                        <div className="mt-6 flex justify-center">
+                                            <div className="mt-6 lg:mt-0 lg:ml-6 flex-grow-0 flex-shrink-0">
+                                                <div className="relative rounded-full overflow-hidden">
+                                                    {previewImage && (
                                                         <img
                                                             className="relative rounded-full w-40 h-40"
-                                                            src={
-                                                                userObject?.image_url
-                                                            }
-                                                            alt=""
+                                                            src={previewImage}
+                                                            alt="#"
                                                         />
-                                                    ) : (
-                                                        <span className="inline-block h-40 w-40 rounded-full overflow-hidden bg-gray-100">
-                                                            <svg
-                                                                className="h-full w-full text-gray-300"
-                                                                fill="currentColor"
-                                                                viewBox="0 0 24 24"
-                                                            >
-                                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                                            </svg>
-                                                        </span>
-                                                    ))}
+                                                    )}
+                                                    {!previewImage &&
+                                                        (userObject?.image_url ? (
+                                                            <img
+                                                                className="relative rounded-full w-40 h-40"
+                                                                src={
+                                                                    userObject?.image_url
+                                                                }
+                                                                alt=""
+                                                            />
+                                                        ) : (
+                                                            <span className="inline-block h-40 w-40 rounded-full overflow-hidden bg-gray-100">
+                                                                <svg
+                                                                    className="h-full w-full text-gray-300"
+                                                                    fill="currentColor"
+                                                                    viewBox="0 0 24 24"
+                                                                >
+                                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                                </svg>
+                                                            </span>
+                                                        ))}
 
+                                                    <label
+                                                        htmlFor="image"
+                                                        className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
+                                                    >
+                                                        <span>Change</span>
+                                                        <input
+                                                            type="file"
+                                                            id="image"
+                                                            name="image"
+                                                            onChange={(
+                                                                event
+                                                            ) => {
+                                                                setPreviewImage(
+                                                                    URL.createObjectURL(
+                                                                        event
+                                                                            .target
+                                                                            .files[0]
+                                                                    )
+                                                                );
+                                                            }}
+                                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
+                                                        />
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6 grid grid-cols-12 gap-6">
+                                            <div className="col-span-12 sm:col-span-6">
                                                 <label
-                                                    htmlFor="image"
-                                                    className="absolute inset-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center text-sm font-medium text-white opacity-0 hover:opacity-100 focus-within:opacity-100"
+                                                    htmlFor="first_name"
+                                                    className="block text-sm font-medium text-gray-700"
                                                 >
-                                                    <span>Change</span>
-                                                    <input
-                                                        type="file"
-                                                        id="image"
-                                                        name="image"
-                                                        onChange={(event) => {
-                                                            setPreviewImage(
-                                                                URL.createObjectURL(
-                                                                    event.target
-                                                                        .files[0]
-                                                                )
-                                                            );
-                                                        }}
-                                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"
-                                                    />
+                                                    First name
                                                 </label>
+                                                <input
+                                                    defaultValue={
+                                                        userObject?.first_name
+                                                    }
+                                                    type="text"
+                                                    name="first_name"
+                                                    id="first_name"
+                                                    autoComplete="given-name"
+                                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
+                                                />
+                                            </div>
+
+                                            <div className="col-span-12 sm:col-span-6">
+                                                <label
+                                                    htmlFor="last_name"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    Last name
+                                                </label>
+                                                <input
+                                                    defaultValue={
+                                                        userObject?.last_name
+                                                    }
+                                                    type="text"
+                                                    name="last_name"
+                                                    id="last_name"
+                                                    autoComplete="family-name"
+                                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
+                                                />
+                                            </div>
+
+                                            <div className="col-span-12">
+                                                <label
+                                                    htmlFor="url"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    Password
+                                                </label>
+                                                <input
+                                                    type="password"
+                                                    name="password"
+                                                    id="password"
+                                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
+                                                />
+                                            </div>
+                                            <div className="col-span-12">
+                                                <label
+                                                    htmlFor="url"
+                                                    className="block text-sm font-medium text-gray-700"
+                                                >
+                                                    Confirm Password
+                                                </label>
+                                                <input
+                                                    type="password"
+                                                    name="password_confirmation"
+                                                    id="password_confirmation"
+                                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
+                                                />
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="mt-6 grid grid-cols-12 gap-6">
-                                        <div className="col-span-12 sm:col-span-6">
-                                            <label
-                                                htmlFor="first_name"
-                                                className="block text-sm font-medium text-gray-700"
+                                    <div className=" divide-gray-200">
+                                        <div className="py-4 px-4 flex justify-end sm:px-6">
+                                            <button
+                                                type="button"
+                                                className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
                                             >
-                                                First name
-                                            </label>
-                                            <input
-                                                defaultValue={
-                                                    userObject?.first_name
-                                                }
-                                                type="text"
-                                                name="first_name"
-                                                id="first_name"
-                                                autoComplete="given-name"
-                                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
-                                            />
-                                        </div>
-
-                                        <div className="col-span-12 sm:col-span-6">
-                                            <label
-                                                htmlFor="last_name"
-                                                className="block text-sm font-medium text-gray-700"
+                                                Cancel
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
                                             >
-                                                Last name
-                                            </label>
-                                            <input
-                                                defaultValue={
-                                                    userObject?.last_name
-                                                }
-                                                type="text"
-                                                name="last_name"
-                                                id="last_name"
-                                                autoComplete="family-name"
-                                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
-                                            />
-                                        </div>
-
-                                        <div className="col-span-12">
-                                            <label
-                                                htmlFor="url"
-                                                className="block text-sm font-medium text-gray-700"
-                                            >
-                                                Password
-                                            </label>
-                                            <input
-                                                type="password"
-                                                name="password"
-                                                id="password"
-                                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
-                                            />
-                                        </div>
-                                        <div className="col-span-12">
-                                            <label
-                                                htmlFor="url"
-                                                className="block text-sm font-medium text-gray-700"
-                                            >
-                                                Confirm Password
-                                            </label>
-                                            <input
-                                                type="password"
-                                                name="password_confirmation"
-                                                id="password_confirmation"
-                                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
-                                            />
+                                                Save
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div className=" divide-gray-200">
-                                    <div className="py-4 px-4 flex justify-end sm:px-6">
-                                        <button
-                                            type="button"
-                                            className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            type="submit"
-                                            className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
-                                        >
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </main>
+                </TabPanel>
+                <TabPanel value={tabValue} index={1}>
+                    <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
+                        <div className="bg-white rounded-lg shadow overflow-hidden">
+                            <div className="justify-center">
+                                <form
+                                    onSubmit={onSubmitPersonalize}
+                                    className="divide-y divide-gray-200 lg:col-span-9"
+                                    action="#"
+                                    method="POST"
+                                >
+                                    <div className="py-6 px-4 sm:p-6 lg:pb-8">
+                                        <h2 className="text-lg leading-6 font-medium text-gray-900">
+                                            Personalization
+                                        </h2>
+
+                                        <div className="mt-6 grid grid-cols-12 gap-6">
+                                            <div className="col-span-12">
+                                                <FormControl
+                                                    sx={{ width: 250 }}
+                                                >
+                                                    <InputLabel id="set-prefered-category">
+                                                        Category
+                                                    </InputLabel>
+                                                    <Select
+                                                        labelId="set-prefered-category"
+                                                        id="category"
+                                                        multiple
+                                                        value={
+                                                            selectedCategories
+                                                        }
+                                                        defaultValue={
+                                                            selectedCategories
+                                                        }
+                                                        onChange={
+                                                            onHandleCategoryChange
+                                                        }
+                                                        input={
+                                                            <OutlinedInput label="Category" />
+                                                        }
+                                                    >
+                                                        {categories.map(
+                                                            (newsCategory) => (
+                                                                <MenuItem
+                                                                    key={
+                                                                        newsCategory?.id
+                                                                    }
+                                                                    value={
+                                                                        newsCategory?.id
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        newsCategory?.news_category_name
+                                                                    }
+                                                                </MenuItem>
+                                                            )
+                                                        )}
+                                                    </Select>
+                                                </FormControl>
+                                            </div>
+
+                                            <div className="col-span-12">
+                                                <FormControl
+                                                    sx={{ width: 250 }}
+                                                >
+                                                    <InputLabel id="set-prefered-source">
+                                                        Source
+                                                    </InputLabel>
+                                                    <Select
+                                                        labelId="set-prefered-source"
+                                                        id="source"
+                                                        multiple
+                                                        value={selectedSources}
+                                                        defaultValue={
+                                                            selectedSources
+                                                        }
+                                                        onChange={
+                                                            onHandleSourceChange
+                                                        }
+                                                        input={
+                                                            <OutlinedInput label="Source" />
+                                                        }
+                                                    >
+                                                        {sources.map(
+                                                            (source) => (
+                                                                <MenuItem
+                                                                    key={
+                                                                        source?.id
+                                                                    }
+                                                                    value={
+                                                                        source?.id
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        source?.source_name
+                                                                    }
+                                                                </MenuItem>
+                                                            )
+                                                        )}
+                                                    </Select>
+                                                </FormControl>
+                                            </div>
+                                            <div className="col-span-12">
+                                                <FormControl
+                                                    sx={{ width: 250 }}
+                                                >
+                                                    <InputLabel id="set-prefered-author">
+                                                        Author
+                                                    </InputLabel>
+                                                    <Select
+                                                        labelId="set-prefered-author"
+                                                        id="author"
+                                                        multiple
+                                                        value={selectedAuthors}
+                                                        defaultValue={
+                                                            selectedAuthors
+                                                        }
+                                                        onChange={
+                                                            onHandleAuthorChange
+                                                        }
+                                                        input={
+                                                            <OutlinedInput label="Author" />
+                                                        }
+                                                    >
+                                                        {authors.map(
+                                                            (author) => (
+                                                                <MenuItem
+                                                                    key={
+                                                                        author?.id
+                                                                    }
+                                                                    value={
+                                                                        author?.id
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        author?.contributor_name
+                                                                    }
+                                                                </MenuItem>
+                                                            )
+                                                        )}
+                                                    </Select>
+                                                </FormControl>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className=" divide-gray-200">
+                                        <div className="py-4 px-4 flex justify-end sm:px-6">
+                                            <button
+                                                type="button"
+                                                className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                type="submit"
+                                                className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </TabPanel>
+            </Box>
         </div>
     );
 }

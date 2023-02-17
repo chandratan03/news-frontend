@@ -2,6 +2,7 @@ import axios from "axios";
 import {
     LOGIN_V1_URL,
     LOGOUT_V1_URL,
+    PERSONALIZE_ACCOUNT_V1_URL,
     REGISTER_V1_URL,
     UPDATE_ACCOUNT_V1_URL,
 } from "../constants/api";
@@ -20,15 +21,12 @@ export function login(email, password) {
 
 export function logout() {
     let result = undefined;
-    result = customAxios
-        .post(LOGOUT_V1_URL)
-        .catch(function (error) {
-            console.error(error);
-            return error.response;
-        });
+    result = customAxios.post(LOGOUT_V1_URL).catch(function (error) {
+        console.error(error);
+        return error.response;
+    });
     return result;
 }
-
 
 export function register(
     firstName,
@@ -74,6 +72,19 @@ export function updateAccount(
                 },
             }
         )
+        .catch(function (error) {
+            console.error(error);
+            return error.response;
+        });
+}
+
+export function personalizeAccount(sources, categories, authors) {
+    return customAxios
+        .post(PERSONALIZE_ACCOUNT_V1_URL, {
+            sources: sources ? sources : null,
+            categories: categories ? categories : null,
+            authors: authors ? authors : null,
+        })
         .catch(function (error) {
             console.error(error);
             return error.response;
