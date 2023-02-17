@@ -256,7 +256,7 @@ export default function ProfilePage() {
                     </div>
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                    <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
+                    <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh] max-w-[440px]">
                         <div className="bg-white rounded-lg shadow overflow-hidden">
                             <div className="justify-center">
                                 {personalizeErrorMsg && (
@@ -305,7 +305,7 @@ export default function ProfilePage() {
                                     action="#"
                                     method="POST"
                                 >
-                                    <div className="py-6 px-4 sm:p-6 lg:pb-8">
+                                    <div className="py-6 px-4 ">
                                         <h2 className="text-lg leading-6 font-medium text-gray-900">
                                             Personalization
                                         </h2>
@@ -313,7 +313,7 @@ export default function ProfilePage() {
                                         <div className="mt-6 grid grid-cols-12 gap-6">
                                             <div className="col-span-12">
                                                 <FormControl
-                                                    sx={{ width: 250 }}
+                                                    sx={{ width: "100%" }}
                                                 >
                                                     <InputLabel id="set-prefered-category">
                                                         Category
@@ -357,7 +357,7 @@ export default function ProfilePage() {
 
                                             <div className="col-span-12">
                                                 <FormControl
-                                                    sx={{ width: 250 }}
+                                                    sx={{ width: "100%" }}
                                                 >
                                                     <InputLabel id="set-prefered-source">
                                                         Source
@@ -398,7 +398,7 @@ export default function ProfilePage() {
                                             </div>
                                             <div className="col-span-12">
                                                 <FormControl
-                                                    sx={{ width: 250 }}
+                                                    sx={{ width: "100%" }}
                                                 >
                                                     <InputLabel id="set-prefered-author">
                                                         Author
