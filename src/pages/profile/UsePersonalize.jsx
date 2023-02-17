@@ -9,6 +9,8 @@ const UsePersonalize = () => {
     const { user, token, isAuth, setUser, setToken, setIsAuth } =
         useContext(AuthContext);
 
+    const [isLoadingPersonalize, setIsLoadingPersonalize] = useState(false);
+
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [categories, setCategories] = useState([]);
 
@@ -50,6 +52,7 @@ const UsePersonalize = () => {
 
     const onSubmitPersonalize = async (event) => {
         event.preventDefault();
+        setIsLoadingPersonalize(true);
         let sourcesValue = selectedSources.length > 0 ? selectedSources : null;
         let categoriesValue =
             selectedCategories.length > 0 ? selectedCategories : null;
@@ -66,47 +69,44 @@ const UsePersonalize = () => {
             setUser(userData);
             window.location.reload();
         }
+        setIsLoadingPersonalize(true);
     };
 
     const onLoadDefault = () => {
-        if(!user) return
+        if (!user) return;
         let userObject = JSON.parse(user);
         if (!userObject?.personalize) return;
         const personalize = JSON.parse(userObject?.personalize);
-        if(personalize?.authors){
+        if (personalize?.authors) {
             setSelectedAuthors(personalize?.authors);
         }
-        if(personalize?.sources){
+        if (personalize?.sources) {
             setSelectedSources(personalize?.sources);
         }
-        if(personalize?.categories){
+        if (personalize?.categories) {
             setSelectedCategories(personalize?.categories);
         }
-
     };
 
     return {
         onSubmitPersonalize,
         selectedCategories,
-        setSelectedCategories,
         onHandleCategoryChange,
         categories,
         loadCategories,
 
         selectedSources,
-        setSelectedSources,
         sources,
-        setSources,
         onHandleSourceChange,
         loadSources,
 
         selectedAuthors,
-        setSelectedAuthors,
         authors,
-        setAuthors,
         onHandleAuthorChange,
         loadAuthors,
         onLoadDefault,
+
+        isLoadingPersonalize,
     };
 };
 

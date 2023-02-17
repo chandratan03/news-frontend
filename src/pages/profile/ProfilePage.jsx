@@ -13,42 +13,36 @@ import Header from "../../components/header/Header";
 import UseProfile from "./UseProfile";
 import { a11yProps, TabPanel } from "../../components/tabs/CustomTab";
 import UsePersonalize from "./UsePersonalize";
-
-const user = {
-    name: "Debbie Lewis",
-    handle: "deblewis",
-    email: "debbielewis@example.com",
-    imageUrl:
-        "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=320&h=320&q=80",
-};
+import LoadingIcon from "../../components/icons/LoadingIcon";
 
 export default function ProfilePage() {
-    const { userObject, onSubmit, previewImage, setPreviewImage } =
-        UseProfile();
+    const {
+        userObject,
+        onSubmit,
+        previewImage,
+        setPreviewImage,
+        isLoadingProfile,
+    } = UseProfile();
 
     const {
         onSubmitPersonalize,
         selectedCategories,
-        setSelectedCategories,
         onHandleCategoryChange,
         categories,
         loadCategories,
 
         selectedSources,
-        setSelectedSources,
         sources,
-        setSources,
         onHandleSourceChange,
         loadSources,
 
         selectedAuthors,
-        setSelectedAuthors,
         authors,
-        setAuthors,
         onHandleAuthorChange,
         loadAuthors,
 
         onLoadDefault,
+        isLoadingPersonalize,
     } = UsePersonalize();
 
     const [tabValue, setTabValue] = React.useState(0);
@@ -224,18 +218,16 @@ export default function ProfilePage() {
 
                                     <div className=" divide-gray-200">
                                         <div className="py-4 px-4 flex justify-end sm:px-6">
-                                            <button
-                                                type="button"
-                                                className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
-                                            >
-                                                Cancel
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
-                                            >
-                                                Save
-                                            </button>
+                                            {isLoadingProfile ? (
+                                                <LoadingIcon />
+                                            ) : (
+                                                <button
+                                                    type="submit"
+                                                    className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
+                                                >
+                                                    Save
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </form>
@@ -390,18 +382,16 @@ export default function ProfilePage() {
 
                                     <div className=" divide-gray-200">
                                         <div className="py-4 px-4 flex justify-end sm:px-6">
-                                            <button
-                                                type="button"
-                                                className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
-                                            >
-                                                Cancel
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
-                                            >
-                                                Save
-                                            </button>
+                                            {isLoadingPersonalize ? (
+                                                <LoadingIcon />
+                                            ) : (
+                                                <button
+                                                    type="submit"
+                                                    className="ml-5 bg-light-blue-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-light-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-blue-500"
+                                                >
+                                                    Save
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                 </form>

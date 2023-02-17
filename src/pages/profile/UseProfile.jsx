@@ -7,10 +7,11 @@ const UseProfile = () => {
         useContext(AuthContext);
     const userObject = user ? JSON.parse(user) : null;
     const [previewImage, setPreviewImage] = useState(null);
-    
+    const [isLoadingProfile, setIsLoadingProfile] = useState(false);
 
     const onSubmit = async (event) => {
         event.preventDefault();
+        setIsLoadingProfile(true);
         let firstName = event.target.first_name.value;
         let lastName = event.target.last_name.value;
         let password = event.target.password.value;
@@ -31,15 +32,15 @@ const UseProfile = () => {
             setUser(userData);
             window.location.reload();
         }
+        setIsLoadingProfile(false);
     };
-
-   
 
     return {
         userObject,
         onSubmit,
         previewImage,
         setPreviewImage,
+        isLoadingProfile,
     };
 };
 
