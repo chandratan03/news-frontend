@@ -6,6 +6,7 @@ const UseProfile = () => {
     const { user, token, isAuth, setUser, setToken, setIsAuth } =
         useContext(AuthContext);
     const userObject = user ? JSON.parse(user) : null;
+    const [profileErrorMsg, setProfileErrorMsg] = useState(undefined);
     const [previewImage, setPreviewImage] = useState(null);
     const [isLoadingProfile, setIsLoadingProfile] = useState(false);
 
@@ -32,6 +33,7 @@ const UseProfile = () => {
             setUser(userData);
             window.location.reload();
         }
+        setProfileErrorMsg(response.data.message);
         setIsLoadingProfile(false);
     };
 
@@ -41,6 +43,7 @@ const UseProfile = () => {
         previewImage,
         setPreviewImage,
         isLoadingProfile,
+        profileErrorMsg,
     };
 };
 

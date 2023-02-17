@@ -14,6 +14,7 @@ import UseProfile from "./UseProfile";
 import { a11yProps, TabPanel } from "../../components/tabs/CustomTab";
 import UsePersonalize from "./UsePersonalize";
 import LoadingIcon from "../../components/icons/LoadingIcon";
+import { ExclamationIcon, XCircleIcon } from "@heroicons/react/outline";
 
 export default function ProfilePage() {
     const {
@@ -22,6 +23,7 @@ export default function ProfilePage() {
         previewImage,
         setPreviewImage,
         isLoadingProfile,
+        profileErrorMsg,
     } = UseProfile();
 
     const {
@@ -43,6 +45,7 @@ export default function ProfilePage() {
 
         onLoadDefault,
         isLoadingPersonalize,
+        personalizeErrorMsg,
     } = UsePersonalize();
 
     const [tabValue, setTabValue] = React.useState(0);
@@ -76,6 +79,23 @@ export default function ProfilePage() {
                     <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
                         <div className="bg-white rounded-lg shadow overflow-hidden">
                             <div className="justify-center">
+                                {profileErrorMsg && (
+                                    <div className="bg-red-50 border-l-4 border-red-400 p-4">
+                                        <div className="flex">
+                                            <div className="flex-shrink-0">
+                                                <XCircleIcon
+                                                    className="h-5 w-5 text-red-400"
+                                                    aria-hidden="true"
+                                                />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm text-red-700">
+                                                    {profileErrorMsg}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                                 <form
                                     onSubmit={onSubmit}
                                     className="divide-y divide-gray-200 lg:col-span-9"
@@ -239,6 +259,46 @@ export default function ProfilePage() {
                     <div className="flex items-center justify-center mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
                         <div className="bg-white rounded-lg shadow overflow-hidden">
                             <div className="justify-center">
+                                {personalizeErrorMsg && (
+                                    <div className="bg-red-50 border-l-4 border-red-400 p-4">
+                                        <div className="flex">
+                                            <div className="flex-shrink-0">
+                                                <XCircleIcon
+                                                    className="h-5 w-5 text-red-400"
+                                                    aria-hidden="true"
+                                                />
+                                            </div>
+                                            <div className="ml-3">
+                                                <p className="text-sm text-red-700">
+                                                    {personalizeErrorMsg}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                                <div className="rounded-md bg-yellow-50 p-4">
+                                    <div className="flex">
+                                        <div className="flex-shrink-0">
+                                            <ExclamationIcon
+                                                className="h-5 w-5 text-yellow-400"
+                                                aria-hidden="true"
+                                            />
+                                        </div>
+                                        <div className="ml-3">
+                                            <h3 className="text-sm font-medium text-yellow-800">
+                                                Notes
+                                            </h3>
+                                            <div className="mt-2 text-sm text-yellow-700">
+                                                <p>
+                                                    If you provide some
+                                                    personalization, it will be
+                                                    shown on the home page as
+                                                    recommended news.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <form
                                     onSubmit={onSubmitPersonalize}
                                     className="divide-y divide-gray-200 lg:col-span-9"

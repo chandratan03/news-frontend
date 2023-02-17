@@ -9,6 +9,7 @@ const UsePersonalize = () => {
     const { user, token, isAuth, setUser, setToken, setIsAuth } =
         useContext(AuthContext);
 
+    const [personalizeErrorMsg, setPersonalizeErrorMsg] = useState(undefined);
     const [isLoadingPersonalize, setIsLoadingPersonalize] = useState(false);
 
     const [selectedCategories, setSelectedCategories] = useState([]);
@@ -68,6 +69,8 @@ const UsePersonalize = () => {
             sessionStorage.setItem("user", userData);
             setUser(userData);
             window.location.reload();
+        }else{
+            setPersonalizeErrorMsg(response.data.message);
         }
         setIsLoadingPersonalize(true);
     };
@@ -107,6 +110,7 @@ const UsePersonalize = () => {
         onLoadDefault,
 
         isLoadingPersonalize,
+        personalizeErrorMsg,
     };
 };
 
