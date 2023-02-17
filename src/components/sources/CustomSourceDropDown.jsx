@@ -15,13 +15,16 @@ const CustomSourceDropDown = () => {
     }, []);
 
     return (
-        <Box sx={{ minWidth: 120 }}>
+        <div className="w-full sm:w-[200px]">
             <FormControl fullWidth>
                 <InputLabel>Source</InputLabel>
                 <Select
                     label="source"
                     defaultValue={selectedSource?.id}
                     onChange={handleChange}
+                    sx={{
+                        width:"100%"
+                    }}
                 >
                     {sources.map((source) => {
                         return (
@@ -35,7 +38,7 @@ const CustomSourceDropDown = () => {
                     })}
                 </Select>
             </FormControl>
-        </Box>
+        </div>
     );
 };
 

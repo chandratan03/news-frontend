@@ -67,9 +67,6 @@ export default function ProfilePage() {
             <Box sx={{ width: "100%" }}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                     <Tabs
-                        TabIndicatorProps={{
-                            style: { background: "black" },
-                        }}
                         value={tabValue}
                         onChange={handleChange}
                         aria-label="basic tabs example"
@@ -79,8 +76,8 @@ export default function ProfilePage() {
                     </Tabs>
                 </Box>
                 <TabPanel value={tabValue} index={0}>
-                    <div className="flex items-center justify-center p-6 mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh] w-full">
-                        <div className="bg-white rounded-lg shadow overflow-hidden">
+                    <div className="flex items-center justify-center p-6 mx-auto x-4 lg:px-8 min-h-[80vh] w-full max-w-[750px]">
+                        <div className="bg-white rounded-lg shadow overflow-hidden w-full">
                             <div className="justify-center">
                                 {profileErrorMsg && (
                                     <div className="bg-red-50 border-l-4 border-red-400 p-4">
@@ -259,8 +256,8 @@ export default function ProfilePage() {
                     </div>
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                    <div className="flex items-center justify-center p-6 mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh]">
-                        <div className="bg-white rounded-lg shadow overflow-hidden">
+                    <div className="flex items-center justify-center p-6 mx-auto x-4 sm:px-6 lg:px-8 min-h-[80vh] w-full max-w-[750px]">
+                        <div className="bg-white rounded-lg shadow overflow-hidden w-full">
                             <div className="justify-center">
                                 <div className="py-6 px-4 sm:p-6 lg:pb-8">
                                     {personalizeErrorMsg && (
@@ -385,6 +382,7 @@ export default function ProfilePage() {
                                                             input={
                                                                 <OutlinedInput label="Source" />
                                                             }
+                                                            
                                                         >
                                                             {sources.map(
                                                                 (source) => (

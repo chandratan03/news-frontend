@@ -16,7 +16,7 @@ const CustomCategoryDropDown = () => {
 
     return (
         <>
-            <Box sx={{ minWidth: 120 }}>
+            <div className="w-full sm:w-[200px]">
                 <FormControl fullWidth>
                     <InputLabel>Category</InputLabel>
                     <Select
@@ -40,7 +40,7 @@ const CustomCategoryDropDown = () => {
                         })}
                     </Select>
                 </FormControl>
-            </Box>
+            </div>
         </>
     );
 };

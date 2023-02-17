@@ -71,14 +71,14 @@ export default function HomePage() {
                             News
                         </h3>
                     </div>
-                    <div className="p-6 flex flex-wrap justify-start items-center">
-                        <div className="mr-2 mb-2">
+                    <div className="p-6 flex justify-start items-start flex-col sm:flex-row sm:items-center">
+                        <div className="mr-2 mb-2 w-full sm:w-auto">
                             <CustomDatePicker />
                         </div>
-                        <div className="mr-2 mb-2">
+                        <div className="mr-2 mb-2 w-full sm:w-auto">
                             <CustomSourceDropDown />
                         </div>
-                        <div className="mb-2">
+                        <div className="mb-2 w-full sm:w-auto">
                             <CustomCategoryDropDown />
                         </div>
                     </div>
