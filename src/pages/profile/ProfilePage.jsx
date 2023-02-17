@@ -67,12 +67,15 @@ export default function ProfilePage() {
             <Box sx={{ width: "100%" }}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                     <Tabs
+                        TabIndicatorProps={{
+                            style: { background: "black" },
+                        }}
                         value={tabValue}
                         onChange={handleChange}
                         aria-label="basic tabs example"
                     >
                         <Tab label="Profile" {...a11yProps(0)} />
-                        <Tab label="Personalize" {...a11yProps(1)} />
+                        <Tab  label="Personalize" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={tabValue} index={0}>
