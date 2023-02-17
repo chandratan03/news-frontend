@@ -72,7 +72,7 @@ export default function ProfilePage() {
                         aria-label="basic tabs example"
                     >
                         <Tab label="Profile" {...a11yProps(0)} />
-                        <Tab  label="Personalize" {...a11yProps(1)} />
+                        <Tab label="Personalize" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={tabValue} index={0}>
@@ -315,15 +315,26 @@ export default function ProfilePage() {
                                             <div className="mt-6 grid grid-cols-12 gap-6">
                                                 <div className="col-span-12">
                                                     <FormControl
+                                                        size="small"
                                                         sx={{ width: "100%" }}
                                                     >
-                                                        <InputLabel id="set-prefered-category">
+                                                        <InputLabel
+                                                            id="set-prefered-category"
+                                                            sx={{
+                                                                fontSize:
+                                                                    "14px",
+                                                            }}
+                                                        >
                                                             Category
                                                         </InputLabel>
                                                         <Select
                                                             labelId="set-prefered-category"
                                                             id="category"
                                                             multiple
+                                                            sx={{
+                                                                fontSize:
+                                                                    "14px",
+                                                            }}
                                                             value={
                                                                 selectedCategories
                                                             }
@@ -342,6 +353,10 @@ export default function ProfilePage() {
                                                                     newsCategory
                                                                 ) => (
                                                                     <MenuItem
+                                                                        sx={{
+                                                                            fontSize:
+                                                                                "14px",
+                                                                        }}
                                                                         key={
                                                                             newsCategory?.id
                                                                         }
@@ -361,15 +376,26 @@ export default function ProfilePage() {
 
                                                 <div className="col-span-12">
                                                     <FormControl
+                                                        size="small"
                                                         sx={{ width: "100%" }}
                                                     >
-                                                        <InputLabel id="set-prefered-source">
+                                                        <InputLabel
+                                                            id="set-prefered-source"
+                                                            sx={{
+                                                                fontSize:
+                                                                    "14px",
+                                                            }}
+                                                        >
                                                             Source
                                                         </InputLabel>
                                                         <Select
                                                             labelId="set-prefered-source"
                                                             id="source"
                                                             multiple
+                                                            sx={{
+                                                                fontSize:
+                                                                    "14px",
+                                                            }}
                                                             value={
                                                                 selectedSources
                                                             }
@@ -382,11 +408,14 @@ export default function ProfilePage() {
                                                             input={
                                                                 <OutlinedInput label="Source" />
                                                             }
-                                                            
                                                         >
                                                             {sources.map(
                                                                 (source) => (
                                                                     <MenuItem
+                                                                        sx={{
+                                                                            fontSize:
+                                                                                "14px",
+                                                                        }}
                                                                         key={
                                                                             source?.id
                                                                         }
@@ -405,15 +434,26 @@ export default function ProfilePage() {
                                                 </div>
                                                 <div className="col-span-12">
                                                     <FormControl
+                                                        size="small"
                                                         sx={{ width: "100%" }}
                                                     >
-                                                        <InputLabel id="set-prefered-author">
+                                                        <InputLabel
+                                                            id="set-prefered-author"
+                                                            sx={{
+                                                                fontSize:
+                                                                    "14px",
+                                                            }}
+                                                        >
                                                             Author
                                                         </InputLabel>
                                                         <Select
                                                             labelId="set-prefered-author"
                                                             id="author"
                                                             multiple
+                                                            sx={{
+                                                                fontSize:
+                                                                    "14px",
+                                                            }}
                                                             value={
                                                                 selectedAuthors
                                                             }
@@ -430,6 +470,10 @@ export default function ProfilePage() {
                                                             {authors.map(
                                                                 (author) => (
                                                                     <MenuItem
+                                                                        sx={{
+                                                                            fontSize:
+                                                                                "14px",
+                                                                        }}
                                                                         key={
                                                                             author?.id
                                                                         }
