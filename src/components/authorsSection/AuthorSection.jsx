@@ -32,7 +32,7 @@ const AuthorSection = () => {
             {!isLoading && !contributor && (
                 <div className="flex flex-col p-6 flex-wrap justify-start">
                     <div className="mb-6">
-                        <h3 className="text-xl font-bold text-gray-700">
+                        <h3 className="text-2xl font-bold text-gray-900">
                             Recommended Authors
                         </h3>
                     </div>
